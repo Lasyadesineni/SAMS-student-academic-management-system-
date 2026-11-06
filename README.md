@@ -1,340 +1,679 @@
-# SAMS – Student Academic Management System
+# 🎓 Student Academic Management System (SAMS)
 
-A modern, production-grade, full-stack educational management platform built with **React (Vite)**, **Tailwind CSS**, **Node.js**, **Express**, and **MongoDB (Mongoose)**.
+A full-stack web application designed to simplify student administration, academic record management, attendance tracking, examination management, and student performance analysis.
 
-SAMS is designed for higher-education colleges and universities to manage institutional records, academic curriculums, daily lecture attendance, examination mark ledgers, and student performance analytics with real-time MongoDB aggregation pipelines.
+SAMS provides separate interfaces for administrators and students, allowing institutions to manage academic information efficiently while giving students access to their personal academic records.
+
+The application is built using **React.js, Vite, Tailwind CSS, Node.js, Express.js, and MongoDB**.
 
 ---
 
-## 📸 Key Highlights & Demonstration Credentials
+## 📌 Table of Contents
 
-Both roles are pre-seeded in the database with realistic sample datasets:
+- [Project Overview](#-project-overview)
+- [Key Features](#-key-features)
+- [Technology Stack](#-technology-stack)
+- [Application Modules](#-application-modules)
+- [MongoDB Concepts Demonstrated](#-mongodb-concepts-demonstrated)
+- [Project Structure](#-project-structure)
+- [System Requirements](#-system-requirements)
+- [Installation and Setup](#-installation-and-setup)
+- [Environment Variables](#-environment-variables)
+- [Database Setup](#-database-setup)
+- [API Reference](#-api-reference)
+- [Security and Data Integrity](#-security-and-data-integrity)
+- [Future Enhancements](#-future-enhancements)
+- [Contributing](#-contributing)
 
-| Role | Email | Password | Access Scope |
-| :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@sams.edu` | `Admin@123` | Full institution-wide CRUD, analytics, attendance & marks recording |
-| **Sample Student 1** | `student1@sams.edu` | `Student@123` | Isolated academic portal: own courses, marks, attendance & transcript |
-| **Sample Student 2..15** | `student2@sams.edu` ... `student15@sams.edu` | `Student@123` | Individual student accounts with isolated records |
+---
 
-> **Quick Demo**: The login page features **"Admin Demo"** and **"Student Demo"** one-click autofill buttons for immediate presentation.
+## 📖 Project Overview
+
+Managing student academic information manually can be time-consuming and difficult, especially when handling large amounts of student records, attendance information, examination results, and course details.
+
+The **Student Academic Management System (SAMS)** addresses these challenges through a centralized web-based platform.
+
+It enables administrators to manage students, courses, subjects, enrollments, attendance, and examination marks. Students can log in to view their individual academic performance, attendance records, and profiles.
+
+The system also uses MongoDB queries and aggregation operations to generate academic statistics and performance reports.
+
+### Project Objectives
+
+- Centralize student and academic information.
+- Simplify student, course, and subject management.
+- Maintain attendance and examination records.
+- Generate academic performance statistics.
+- Provide role-based access for administrators and students.
+- Demonstrate practical MongoDB database operations and aggregation.
+
+---
+
+## ✨ Key Features
+
+- **Role-Based Login:** Separate administrator and student access.
+- **Student Management:** Create, view, update, search, and delete student records.
+- **Course Management:** Manage academic courses and their details.
+- **Subject Management:** Organize subjects according to courses and semesters.
+- **Enrollment Management:** Manage student course enrollments.
+- **Attendance Management:** Record and monitor student attendance.
+- **Marks Management:** Maintain examination marks and calculate grades.
+- **Performance Analytics:** Display academic statistics using interactive charts.
+- **Academic Reports:** Generate student performance and attendance reports.
+- **Student Portal:** Allow students to view their own academic information.
+- **Dashboard:** Display important institutional statistics and recent activities.
 
 ---
 
 ## 🛠️ Technology Stack
 
 ### Frontend
-- **Framework**: React.js 18 with Vite
-- **Styling**: Tailwind CSS with custom academic palette
-- **Icons**: Lucide React
-- **Data Visualizations**: Recharts (Line, Bar, Donut charts)
-- **HTTP Client**: Axios with JWT request/response interceptors
 
-### Backend & Database
-- **Runtime**: Node.js (v20+)
-- **Framework**: Express.js REST API
-- **Database**: MongoDB (Atlas or Local MongoDB `127.0.0.1:27017`)
-- **Object Modeling (ODM)**: Mongoose 8 with schema validation and compound unique indexes
-- **Authentication**: JWT (JSON Web Tokens) with 30-day expiry
-- **Password Security**: bcryptjs 10-round salted hashing
-- **Audit Logging**: Morgan logger & administrative activity logs
+| Technology | Purpose |
+|---|---|
+| React.js | Building the user interface |
+| Vite | Frontend development and build tool |
+| Tailwind CSS | Responsive styling |
+| Recharts | Interactive data visualization |
+| Lucide React | Icons |
+| Axios | API communication |
+
+### Backend
+
+| Technology | Purpose |
+|---|---|
+| Node.js | JavaScript runtime |
+| Express.js | REST API development |
+| Mongoose | MongoDB object modeling |
+| JWT | User authentication |
+| bcryptjs | Password hashing |
+| Morgan | HTTP request logging |
+
+### Database and Development Tools
+
+| Tool | Purpose |
+|---|---|
+| MongoDB | Database management |
+| MongoDB Compass | Visual database inspection |
+| mongosh | MongoDB shell operations |
+| Postman | API testing |
+| Git and GitHub | Version control and project hosting |
+| Visual Studio Code | Code editing |
 
 ---
 
-## 🎨 Design System & Theme
+## 📊 Application Modules
 
-Designed according to premium SaaS university portals:
-- **Primary**: Navy Blue (`#1E3A8A`)
-- **Secondary**: Royal Blue (`#3B82F6`)
-- **Surface & Cards**: Pure White (`#FFFFFF`) with soft drop shadows (`shadow-card`)
-- **Background**: Light Grey (`#F8FAFC`)
-- **Dark Typography**: Slate Navy (`#0F172A`)
-- **Status Accents**: Emerald Green (Present / Grade A), Amber (Leave / Warning), Rose Red (Absent / Fail)
+### 1. Administrator Dashboard
 
----
+The administrator dashboard provides an overview of institutional academic information.
 
-## 🚀 Application Modules
+Features include:
 
-### 1. Executive Admin Dashboard
-- **Welcome Section**: Dynamic daily greeting and localized date.
-- **6 Real-time KPI Cards**:
-  1. *Total Students*: Count of registered students with cohort trend.
-  2. *Total Courses*: Active degree programs.
-  3. *Total Subjects*: Curriculum modules.
-  4. *Average Attendance*: Institutional attendance % calculated across all sessions.
-  5. *Average Academic Score*: Institution-wide examination mark percentage.
-  6. *Total Enrollments*: Active student-to-course links.
-- **4 Interactive Recharts**:
-  - *Student Enrollment Overview*: Monthly registration line graph.
-  - *Attendance Overview*: Daily stacked bar chart comparing Present, Absent, and Leave.
-  - *Academic Performance*: Average mark percentage across individual subjects.
-  - *Course Distribution*: Donut chart illustrating student enrollment density per course.
-- **Recently Registered Students Table**: Displays the 5 latest students with quick profile modal.
-- **Recent Activities Feed**: Real audit trail from the MongoDB `activities` collection.
+- Total registered students.
+- Total courses and subjects.
+- Average attendance percentage.
+- Average academic performance.
+- Total student enrollments.
+- Student enrollment charts.
+- Attendance statistics.
+- Subject-wise academic performance.
+- Course distribution.
+- Recently registered students.
+- Recent administrative activities.
 
-### 2. Student Management Directory
-- Add new students with comprehensive validation (Registration No, Name, Email, Phone, Gender, DOB, Department, Course, Semester, Address).
-- Automatically provisions a linked student login portal user account.
-- Search by student name, registration number, or email.
-- Filter by Course and Semester with server-side pagination.
-- Full CRUD: View student academic dossier, Edit details, and Safe Delete with confirmation.
+### 2. Student Management
 
-### 3. Degree Course Management
-- Configure degree curriculums (e.g. B.Tech Computer Science, B.Tech IT, B.Tech ECE).
-- Track course duration, total semesters, and dynamic active enrolled student counts.
-- Add, Edit, and Delete courses with safety checks preventing accidental deletion of courses with enrolled students.
+Administrators can manage student information through a centralized directory.
 
-### 4. Curriculum Subject Management
-- Create subjects linked to specific courses, semesters, and credit weights (1 to 10 credits).
-- Assign faculty instructors (e.g., Prof. Alan Turing, Dr. Edgar Codd).
+Features include:
+
+- Add new student records.
+- View individual student profiles.
+- Update student information.
+- Delete student records.
+- Search by name, registration number, or email.
+- Filter students by course and semester.
+- Manage student login accounts.
+
+### 3. Course Management
+
+This module manages the academic courses offered by the institution.
+
+Features include:
+
+- Add new courses.
+- View available courses.
+- Edit course information.
+- Delete courses.
+- Manage course duration and semester details.
+- View enrolled student counts.
+
+### 4. Subject Management
+
+This module organizes subjects according to academic courses.
+
+Features include:
+
+- Create and manage subjects.
+- Associate subjects with courses.
+- Assign semester information.
+- Manage subject credits.
+- Maintain faculty information.
 - Filter subjects by course and semester.
 
 ### 5. Student Enrollment Management
-- Enroll students into degree courses and select specific curriculum subjects.
-- **Duplicate Prevention**: Compound unique MongoDB index `{ student: 1, course: 1 }` prevents double enrollments.
-- Track enrollment lifecycle status: `Active`, `Completed`, `Dropped`, `Suspended`.
 
-### 6. Daily Attendance Ledger
-- Select Course, Semester, Subject, and Date.
-- Displays enrolled class roster with instant one-click toggle buttons: **Present**, **Absent**, or **Leave**.
-- "Quick Mark All Present" and "Quick Mark All Absent" productivity shortcuts.
-- **Duplicate Protection**: Compound index `{ student: 1, subject: 1, date: 1 }` guarantees no duplicate records for the same day.
-- Real-time statistics summary:
-  $$\text{Attendance Percentage} = \left(\frac{\text{Classes Present}}{\text{Total Classes}}\right) \times 100$$
+This module handles student enrollment into academic courses.
 
-### 7. Examination & Marks Ledger
-- Record scores for:
-  - Internal Assessment
-  - Assignment
-  - Mid-Semester Examination
-  - End-Semester Final Examination
-- Dynamic maximum marks scaling (e.g., 25, 50, 100).
-- **Automated Grading Matrix**: Computes percentage and letter grades ($A+$, $A$, $B$, $C$, $D$, $F$) automatically.
+Features include:
 
-### 8. Academic Reports & Analytics
-- **Performance Dossier**: Student-wise and subject-wise examination scores and grade distributions.
-- **Attendance Audit**: Institutional eligibility check verifying students who satisfy the $\ge 75\%$ attendance mandate.
-- **CSV Data Export**: One-click export downloading actual MongoDB records into `.csv` files.
-- **Print / PDF Ready**: Clean print stylesheet for generating physical or digital grade sheets.
+- Enroll students into courses.
+- Select curriculum subjects.
+- View enrollment records.
+- Update enrollment status.
+- Prevent duplicate enrollments through database constraints.
 
-### 9. Institutional & System Settings
-- Configure University Name, Institutional Code, Contact Email, and Phone.
-- Adjust Academic Calendar Year and current Term.
-- Preview and modify institutional minimum attendance thresholds and grading scale.
+### 6. Attendance Management
+
+The attendance module allows administrators to maintain daily attendance records.
+
+Features include:
+
+- Select course, semester, subject, and date.
+- Record student attendance.
+- Mark students as Present, Absent, or Leave.
+- View attendance summaries.
+- Calculate individual attendance percentages.
+- Identify students with attendance below the required threshold.
+
+Attendance percentage:
+
+\[
+\text{Attendance Percentage} =
+\frac{\text{Classes Present}}{\text{Total Classes}} \times 100
+\]
+
+### 7. Examination and Marks Management
+
+This module maintains student examination records.
+
+Features include:
+
+- Record internal assessment marks.
+- Record assignment marks.
+- Maintain mid-semester examination results.
+- Maintain end-semester examination results.
+- Configure maximum marks.
+- Calculate percentages.
+- Assign grades based on grading rules.
+
+### 8. Academic Reports and Analytics
+
+The reporting module provides insights into student academic performance.
+
+Features include:
+
+- Student-wise performance reports.
+- Subject-wise marks analysis.
+- Grade distribution.
+- Attendance eligibility reports.
+- Academic performance summaries.
+- CSV export.
+- Print-friendly reports.
+
+### 9. Institutional Settings
+
+Administrators can manage institutional configuration details.
+
+Features include:
+
+- University name.
+- Institutional code.
+- Contact information.
+- Academic year.
+- Current academic term.
+- Attendance threshold.
+- Grading configuration.
 
 ### 10. Student Academic Portal
-- **Strict Role Isolation**: Students are strictly authenticated via JWT and can only view their own records.
-- **Personal Metrics**: Enrolled courses count, individual attendance %, overall percentage, and current semester.
-- **My Curriculum Subjects**: List of assigned subjects and credits.
-- **Subject-wise Performance Chart**: Personal bar chart of scores across examinations.
-- **Attendance Breakdown**: Pie chart displaying personal Present, Absent, and Leave distribution.
-- **Official Transcript View**: Complete score sheet with grades and faculty remarks.
-- **Student Profile Dossier**: Contact info, registered address, department, and DOB.
+
+Students have access to their own academic information.
+
+Features include:
+
+- Personal dashboard.
+- Enrolled course information.
+- Subject details.
+- Examination marks.
+- Academic performance charts.
+- Attendance summaries.
+- Student profile.
+- Academic transcript.
+
+Students can only access records associated with their authenticated accounts.
 
 ---
 
-## 📁 Project Directory Structure
+## 🍃 MongoDB Concepts Demonstrated
 
-```
+This project demonstrates practical MongoDB operations through academic record management.
+
+### 1. Database and Collections
+
+The application uses MongoDB to store institutional and academic information in collections such as:
+
+- `users`
+- `students`
+- `courses`
+- `subjects`
+- `enrollments`
+- `attendance`
+- `marks`
+- `activities`
+- `settings`
+
+### 2. CRUD Operations
+
+The system uses the following operations:
+
+| Operation | MongoDB/Mongoose Usage |
+|---|---|
+| Create | Insert student, course, and marks records |
+| Read | Retrieve student and academic information |
+| Update | Modify student, attendance, and course records |
+| Delete | Remove records when permitted |
+
+### 3. Query Operators
+
+MongoDB query operators can be used to filter and retrieve academic records.
+
+Examples:
+
+- `$eq` – Equality comparison.
+- `$gt` – Greater than.
+- `$gte` – Greater than or equal to.
+- `$lt` – Less than.
+- `$lte` – Less than or equal to.
+- `$in` – Match values in an array.
+- `$and` – Combine conditions.
+- `$or` – Match alternative conditions.
+
+### 4. Aggregation Framework
+
+Aggregation pipelines help calculate academic statistics.
+
+Important aggregation stages include:
+
+| Operator | Purpose |
+|---|---|
+| `$match` | Filter records |
+| `$group` | Group records and calculate statistics |
+| `$avg` | Calculate average marks |
+| `$sum` | Calculate totals |
+| `$max` | Find maximum values |
+| `$min` | Find minimum values |
+| `$sort` | Sort records |
+| `$project` | Select or transform fields |
+| `$lookup` | Combine related collections |
+| `$cond` | Apply conditional logic |
+
+### 5. Indexing and Validation
+
+The application uses Mongoose schemas and database indexes to support data consistency and efficient queries.
+
+Examples include:
+
+- Unique student registration numbers.
+- Unique email addresses where configured.
+- Compound indexes to prevent duplicate academic records.
+- Schema validation for required fields and data types.
+
+---
+
+## 📁 Project Structure
+
+```text
 student-management/
+│
 ├── backend/
 │   ├── config/
-│   │   └── db.js                 # MongoDB connection & reconnection handler
+│   │   └── db.js
+│   │
 │   ├── controllers/
-│   │   ├── authController.js     # JWT Login, registration, profile
-│   │   ├── studentController.js  # Student CRUD & statistics
-│   │   ├── courseController.js   # Courses & enrolled student aggregates
-│   │   ├── subjectController.js  # Subjects & faculty linkages
-│   │   ├── enrollmentController.js # Course enrollments & duplicate guard
-│   │   ├── attendanceController.js # Daily bulk marking & percentage metrics
-│   │   ├── markController.js     # Exam marks entry & auto-grading
-│   │   ├── dashboardController.js# Aggregated analytics for Admin & Student
-│   │   ├── reportController.js   # Dossier exports & summary metrics
-│   │   └── settingController.js  # System & grading configuration
+│   │   ├── announcementController.js
+│   │   ├── attendanceController.js
+│   │   ├── authController.js
+│   │   ├── courseController.js
+│   │   ├── dashboardController.js
+│   │   ├── enrollmentController.js
+│   │   ├── markController.js
+│   │   ├── reportController.js
+│   │   ├── settingController.js
+│   │   ├── studentController.js
+│   │   └── subjectController.js
+│   │
 │   ├── middleware/
-│   │   └── auth.js               # JWT verification & role authorization (RBAC)
+│   │   └── auth.js
+│   │
 │   ├── models/
-│   │   ├── User.js               # Auth credentials & role (Admin/Student)
-│   │   ├── Student.js            # Student profile with unique reg number
-│   │   ├── Course.js             # Degree programs & duration
-│   │   ├── Subject.js            # Subjects, credits & faculty
-│   │   ├── Enrollment.js         # Student course enrollments (compound index)
-│   │   ├── Attendance.js         # Daily attendance logs (compound index)
-│   │   ├── Mark.js               # Exam scores & calculated grades
-│   │   ├── Activity.js           # Administrative audit trails
-│   │   └── Setting.js            # Institutional identity & grading matrix
-│   ├── routes/                   # RESTful Express route definitions
-│   ├── .env                      # Environment variables
+│   │   ├── Activity.js
+│   │   ├── Announcement.js
+│   │   ├── Attendance.js
+│   │   ├── Course.js
+│   │   ├── Enrollment.js
+│   │   ├── Mark.js
+│   │   ├── Setting.js
+│   │   ├── Student.js
+│   │   ├── Subject.js
+│   │   └── User.js
+│   │
+│   ├── routes/
+│   │   ├── announcementRoutes.js
+│   │   ├── attendanceRoutes.js
+│   │   ├── authRoutes.js
+│   │   ├── courseRoutes.js
+│   │   ├── dashboardRoutes.js
+│   │   ├── enrollmentRoutes.js
+│   │   ├── markRoutes.js
+│   │   ├── reportRoutes.js
+│   │   ├── settingRoutes.js
+│   │   ├── studentRoutes.js
+│   │   └── subjectRoutes.js
+│   │
+│   ├── .env.example
 │   ├── package.json
-│   ├── seed.js                   # Comprehensive database seeder
-│   └── server.js                 # Express server bootstrap
+│   ├── seed.js
+│   └── server.js
 │
-└── frontend/
-    ├── src/
-    │   ├── api/
-    │   │   └── axiosClient.js    # Axios client with JWT interceptor
-    │   ├── components/
-    │   │   ├── charts/
-    │   │   │   └── DashboardCharts.jsx # Recharts line, bar, and donut charts
-    │   │   ├── layout/
-    │   │   │   ├── Layout.jsx
-    │   │   │   ├── Sidebar.jsx   # Role-adaptive sidebar navigation
-    │   │   │   └── TopNavbar.jsx # Breadcrumbs, notifications & profile
-    │   │   └── ui/
-    │   │       ├── Badge.jsx     # Semantic status badges
-    │   │       ├── Feedback.jsx  # Spinners and empty states
-    │   │       ├── Modal.jsx     # Accessible dialogs
-    │   │       └── StatCard.jsx  # Trend-supported metric cards
-    │   ├── context/
-    │   │   └── AuthContext.jsx   # Persistent auth state & user sessions
-    │   ├── pages/
-    │   │   ├── admin/            # 9 Admin management and reporting modules
-    │   │   ├── student/          # 4 Student personal academic views
-    │   │   └── Login.jsx         # Auth portal with demo buttons
-    │   ├── App.jsx               # App routing and view switcher
-    │   ├── index.css             # Tailwind base & custom scrollbars
-    │   └── main.jsx
-    ├── index.html
-    ├── tailwind.config.js
-    ├── vite.config.js            # Vite setup with /api proxy to backend
-    └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   │   └── axiosClient.js
+│   │   │
+│   │   ├── components/
+│   │   │   ├── charts/
+│   │   │   ├── layout/
+│   │   │   └── ui/
+│   │   │
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   ├── student/
+│   │   │   └── Login.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── .env.example
+│   ├── index.html
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+├── .gitignore
+├── README.md
+└── render.yaml
 ```
 
 ---
 
-## 💻 Installation & Setup Guide
+## 💻 System Requirements
 
-### Prerequisites
-- **Node.js** (v18.0.0 or higher)
-- **npm** (v9.0.0 or higher)
-- **MongoDB** (Local MongoDB Server running on port `27017` or a MongoDB Atlas URI)
+Before running the application, install:
 
----
-
-### Step 1: Backend Setup & Environment Variables
-
-1. Navigate to the `backend` directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install backend dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Verify or edit `backend/.env`:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://127.0.0.1:27017/sams_db
-   JWT_SECRET=sams_super_secure_academic_management_jwt_secret_key_2025
-   NODE_ENV=development
-   ```
-   *(For MongoDB Atlas, replace `MONGO_URI` with your Atlas connection string `mongodb+srv://<username>:<password>@cluster0.mongodb.net/sams_db`)*.
-
-4. Seed the database with realistic sample records:
-   ```bash
-   node seed.js
-   ```
-   *(This creates 1 Admin, 15 Students with user logins, 3 Courses, 6 Subjects, 150 Attendance logs, 90 Exam marks, and initial settings).*
-
-5. Start the backend API server:
-   ```bash
-   npm start
-   # Server runs on http://localhost:5000
-   ```
+- Node.js (18 or later recommended).
+- npm.
+- MongoDB local server or MongoDB Atlas account.
+- MongoDB Compass (optional).
+- Git.
+- Postman (optional, for API testing).
 
 ---
 
-### Step 2: Frontend Setup
+## 🚀 Installation and Setup
 
-1. Open a new terminal and navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
+### Step 1: Clone the Repository
 
-2. Install frontend dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/Lasyadesineni/SAMS-student-academic-management-system-.git
+```
 
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   # Frontend runs on http://localhost:3000
-   ```
+Navigate into the project:
 
-4. Open your browser and navigate to:
-   ```
-   http://localhost:3000
-   ```
+```bash
+cd SAMS-student-academic-management-system-
+```
+
+### Step 2: Backend Setup
+
+Open a terminal and navigate to the backend:
+
+```bash
+cd backend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file using the provided `.env.example` as a reference.
+
+Configure the environment variables according to the backend configuration.
+
+### Step 3: Database Configuration
+
+Make sure MongoDB is running locally or configure a MongoDB Atlas connection string.
+
+Example local connection:
+
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/sams_db
+```
+
+### Step 4: Seed Sample Data
+
+From the backend directory, run:
+
+```bash
+node seed.js
+```
+
+Run this only when you intend to initialize or reset the sample database. Check the seed script before running it against an existing database, as it may modify existing records.
+
+### Step 5: Start the Backend Server
+
+```bash
+npm start
+```
+
+The backend is expected to run on:
+
+```text
+http://localhost:5000
+```
+
+Use the actual port configured in your backend environment if it differs.
+
+### Step 6: Frontend Setup
+
+Open a **second terminal** and navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the frontend in your browser:
+
+```text
+http://localhost:3000
+```
+
+The frontend and backend must both be running for API-dependent features to work.
+
+---
+
+## 🔐 Environment Variables
+
+Do not commit actual `.env` files, passwords, database credentials, or JWT secrets to GitHub.
+
+Example backend environment configuration:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
+NODE_ENV=development
+```
+
+Use the exact variable names required by your backend code. Keep real credentials in your local `.env` file or deployment provider's environment settings.
+
+---
+
+## 🌱 Database Setup
+
+The project uses MongoDB as its primary database.
+
+Example database:
+
+```text
+sams_db
+```
+
+The database contains collections for:
+
+- Users
+- Students
+- Courses
+- Subjects
+- Enrollments
+- Attendance
+- Marks
+- Activities
+- Settings
+
+MongoDB Compass or mongosh can be used to inspect collections and verify database records.
 
 ---
 
 ## 📡 REST API Reference
 
-| Method | Endpoint | Access | Description |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/login` | Public | Authenticate user & receive JWT token |
-| `POST` | `/api/auth/register` | Admin | Register new student or administrator |
-| `GET` | `/api/auth/me` | Private | Fetch current user session profile |
-| `GET` | `/api/dashboard/admin` | Admin | Aggregated metrics, 4 charts & recent logs |
-| `GET` | `/api/dashboard/student` | Student | Scoped personal metrics, courses & results |
-| `GET` | `/api/students` | Admin | List students (search, filter, pagination) |
-| `POST` | `/api/students` | Admin | Register student & auto-create login user |
-| `GET` | `/api/students/:id` | Private | Retrieve single student profile & dossier |
-| `PUT` | `/api/students/:id` | Admin | Update student information |
-| `DELETE` | `/api/students/:id` | Admin | Delete student and clean up dependencies |
-| `GET` | `/api/courses` | Private | List all degree courses with student counts |
-| `POST` | `/api/courses` | Admin | Create a new degree course |
-| `PUT` | `/api/courses/:id` | Admin | Modify course metadata |
-| `DELETE` | `/api/courses/:id` | Admin | Remove course (guarded against active students) |
-| `GET` | `/api/subjects` | Private | List subjects with course/semester filter |
-| `POST` | `/api/subjects` | Admin | Create new curriculum subject |
-| `PUT` | `/api/subjects/:id` | Admin | Update subject credits & assigned faculty |
-| `DELETE` | `/api/subjects/:id` | Admin | Remove subject |
-| `GET` | `/api/enrollments` | Private | List student course enrollments |
-| `POST` | `/api/enrollments` | Admin | Enroll student with duplicate guard |
-| `PUT` | `/api/enrollments/:id` | Admin | Update enrollment status or subjects |
-| `DELETE` | `/api/enrollments/:id` | Admin | Delete enrollment record |
-| `GET` | `/api/attendance` | Private | Get daily attendance logs and stats |
-| `POST` | `/api/attendance` | Admin | Bulk record attendance for a class |
-| `GET` | `/api/marks` | Private | Query marks by subject, exam type, or student |
-| `POST` | `/api/marks` | Admin | Batch save examination marks with auto-grades |
-| `GET` | `/api/reports/performance`| Admin | Academic performance dossier |
-| `GET` | `/api/reports/attendance` | Admin | Institutional attendance audit & eligibility |
-| `GET` | `/api/settings` | Private | View institutional branding & grading rules |
-| `PUT` | `/api/settings` | Admin | Update institutional configuration |
+The application exposes REST API endpoints through the Express backend.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/auth/login` | User login |
+| POST | `/api/auth/register` | Register a user |
+| GET | `/api/auth/me` | Get current user |
+| GET | `/api/dashboard/admin` | Administrator dashboard |
+| GET | `/api/dashboard/student` | Student dashboard |
+| GET | `/api/students` | Retrieve students |
+| POST | `/api/students` | Add a student |
+| GET | `/api/students/:id` | Get student details |
+| PUT | `/api/students/:id` | Update student |
+| DELETE | `/api/students/:id` | Delete student |
+| GET | `/api/courses` | Retrieve courses |
+| POST | `/api/courses` | Add a course |
+| PUT | `/api/courses/:id` | Update a course |
+| DELETE | `/api/courses/:id` | Delete a course |
+| GET | `/api/subjects` | Retrieve subjects |
+| POST | `/api/subjects` | Add a subject |
+| PUT | `/api/subjects/:id` | Update a subject |
+| DELETE | `/api/subjects/:id` | Delete a subject |
+| GET | `/api/enrollments` | Retrieve enrollments |
+| POST | `/api/enrollments` | Create enrollment |
+| PUT | `/api/enrollments/:id` | Update enrollment |
+| DELETE | `/api/enrollments/:id` | Delete enrollment |
+| GET | `/api/attendance` | Retrieve attendance |
+| POST | `/api/attendance` | Record attendance |
+| GET | `/api/marks` | Retrieve examination marks |
+| POST | `/api/marks` | Record marks |
+| GET | `/api/reports/performance` | Performance reports |
+| GET | `/api/reports/attendance` | Attendance reports |
+| GET | `/api/settings` | Retrieve settings |
+| PUT | `/api/settings` | Update settings |
+
+*Note: Confirm endpoint availability and access permissions in the backend route files. This table documents the intended API structure.*
 
 ---
 
-## 🔒 Security & Data Integrity
+## 🔒 Security and Data Integrity
 
-1. **Role-Based Access Control (RBAC)**: Distinct permissions for `admin` and `student`. Students cannot query administrator endpoints or modify academic records.
-2. **Strict Identity Isolation**: The backend validates student requests using the JWT claims attached to `req.user.student`. Attempting to access another student's record returns `403 Forbidden`.
-3. **Compound Unique Indexes**:
-   - `Enrollment`: `{ student: 1, course: 1 }` prevents double active registrations.
-   - `Attendance`: `{ student: 1, subject: 1, date: 1 }` guarantees idempotent daily entries.
-   - `Mark`: `{ student: 1, subject: 1, examType: 1, academicYear: 1 }` prevents duplicate exam entries.
-4. **Data Sanitization**: Passwords hashed with bcrypt; stripped from all API outputs.
+The application incorporates security and data integrity mechanisms, including:
 
----
-
-## 🎓 Academic Demonstration Checklist
-
-- [x] MongoDB database properly connected with Mongoose
-- [x] Schema models with validation, indexes, and timestamps
-- [x] MongoDB aggregation pipelines used for dashboard metrics & charts
-- [x] Full CRUD operations on Students, Courses, Subjects, and Enrollments
-- [x] Bulk attendance ledger with real-time percentage calculation
-- [x] Automated grading matrix ($A+$ to $F$) with configurable thresholds
-- [x] Dynamic Recharts data visualizations (Line, Bar, Donut)
-- [x] CSV report generation & Print/PDF stylesheet
-- [x] Two distinct roles: Administrator & Isolated Student Portal
-- [x] Seed script with 1 admin, 15 students, courses, subjects, attendance & marks
-- [x] Responsive educational SaaS dashboard UI with Tailwind CSS
+- JWT-based authentication.
+- Role-based access for administrators and students.
+- Password hashing using bcryptjs.
+- Protected backend routes.
+- Mongoose schema validation.
+- Unique and compound database indexes where configured.
+- Separation of student-specific academic records.
+- Environment variables for sensitive configuration.
 
 ---
 
-**Developed for the Student Academic Management System (SAMS) Project Demonstration.**
-#   S A M S - s t u d e n t - a c a d e m i c - m a n a g e m e n t - s y s t e m -  
+## 🔮 Future Enhancements
+
+Potential improvements for future versions include:
+
+- Email notifications for attendance shortages.
+- Automated examination result notifications.
+- Advanced student performance prediction.
+- AI-based academic recommendations.
+- Parent login portal.
+- Downloadable academic report cards.
+- Mobile-friendly student application.
+- Advanced analytics and visualization.
+- Integration with institutional ERP systems.
+
+---
+
+## 🤝 Contributing
+
+Contributions and suggestions are welcome.
+
+To contribute:
+
+1. Fork the repository.
+2. Create a new feature branch.
+3. Make your changes.
+4. Test the application.
+5. Submit a pull request.
+
+---
+
+## 👩‍💻 Project Information
+
+**Project Name:** Student Academic Management System (SAMS)  
+**Project Type:** Full-Stack Web Application  
+**Frontend:** React.js and Vite  
+**Backend:** Node.js and Express.js  
+**Database:** MongoDB  
+**Version Control:** Git and GitHub
+
+---
+
+## 📄 License
+
+This project is intended for academic and educational purposes. A formal open-source license can be added if the project is intended for public reuse.
+
+---
+
+**Student Academic Management System — Simplifying Academic Management Through Technology.**
  
